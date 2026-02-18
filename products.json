@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1001,
+        "name": "Wireless Bluetooth Headphones",
+        "description": "Premium noise-cancelling wireless headphones with 30-hour battery life",
+        "price": 89.99,
+        "category": "Electronics",
+        "stockQuantity": 150
+    },
+    {
+        "id": 1002,
+        "name": "Organic Green Tea",
+        "description": "100% organic green tea leaves from the Himalayan region, 100g pack",
+        "price": 12.5,
+        "category": "Food & Beverages",
+        "stockQuantity": 500
+    },
+    {
+        "id": 1003,
+        "name": "Yoga Mat Pro",
+        "description": "Non-slip eco-friendly yoga mat with carrying strap, 6mm thickness",
+        "price": 34.99,
+        "category": "Sports & Fitness",
+        "stockQuantity": 75
+    },
+    {
+        "id": 1004,
+        "name": "Leather Wallet",
+        "description": "Genuine leather bifold wallet with RFID protection",
+        "price": 45.0,
+        "category": "Accessories",
+        "stockQuantity": 200
+    },
+    {
+        "id": 1005,
+        "name": "Smart Watch Series 5",
+        "description": "Fitness tracking smartwatch with heart rate monitor and GPS",
+        "price": 299.99,
+        "category": "Electronics",
+        "stockQuantity": 85
+    },
+    {
+        "id": 1006,
+        "name": "Cotton T-Shirt",
+        "description": "100% organic cotton crew neck t-shirt, available in multiple colors",
+        "price": 19.99,
+        "category": "Clothing",
+        "stockQuantity": 350
+    },
+    {
+        "id": 1007,
+        "name": "Stainless Steel Water Bottle",
+        "description": "Insulated water bottle keeps drinks cold for 24hrs, hot for 12hrs - 750ml",
+        "price": 28.5,
+        "category": "Home & Kitchen",
+        "stockQuantity": 180
+    },
+    {
+        "id": 1008,
+        "name": "Gaming Mouse RGB",
+        "description": "Ergonomic gaming mouse with 16000 DPI and customizable RGB lighting",
+        "price": 59.99,
+        "category": "Electronics",
+        "stockQuantity": 120
+    },
+    {
+        "id": 1009,
+        "name": "Notebook Set",
+        "description": "Set of 3 premium hardcover notebooks with dotted pages, A5 size",
+        "price": 24.99,
+        "category": "Stationery",
+        "stockQuantity": 250
+    },
+    {
+        "id": 1010,
+        "name": "Running Shoes",
+        "description": "Lightweight running shoes with breathable mesh and cushioned sole",
+        "price": 79.99,
+        "category": "Sports & Fitness",
+        "stockQuantity": 95
+    }
+]

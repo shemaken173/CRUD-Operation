@@ -1,0 +1,82 @@
+﻿[
+    {
+        "category":  "Electronics",
+        "description":  "Premium noise-cancelling wireless headphones with 30-hour battery life",
+        "id":  1001,
+        "name":  "Wireless Bluetooth Headphones",
+        "price":  89.99,
+        "stockQuantity":  150
+    },
+    {
+        "category":  "Food \u0026 Beverages",
+        "description":  "100% organic green tea leaves from the Himalayan region, 100g pack",
+        "id":  1002,
+        "name":  "Organic Green Tea",
+        "price":  12.5,
+        "stockQuantity":  500
+    },
+    {
+        "category":  "Sports \u0026 Fitness",
+        "description":  "Non-slip eco-friendly yoga mat with carrying strap, 6mm thickness",
+        "id":  1003,
+        "name":  "Yoga Mat Pro",
+        "price":  34.99,
+        "stockQuantity":  75
+    },
+    {
+        "category":  "Accessories",
+        "description":  "Genuine leather bifold wallet with RFID protection",
+        "id":  1004,
+        "name":  "Leather Wallet",
+        "price":  45.0,
+        "stockQuantity":  200
+    },
+    {
+        "category":  "Electronics",
+        "description":  "Fitness tracking smartwatch with heart rate monitor and GPS",
+        "id":  1005,
+        "name":  "Smart Watch Series 5",
+        "price":  299.99,
+        "stockQuantity":  85
+    },
+    {
+        "category":  "Clothing",
+        "description":  "100% organic cotton crew neck t-shirt, available in multiple colors",
+        "id":  1006,
+        "name":  "Cotton T-Shirt",
+        "price":  19.99,
+        "stockQuantity":  350
+    },
+    {
+        "category":  "Home \u0026 Kitchen",
+        "description":  "Insulated water bottle keeps drinks cold for 24hrs, hot for 12hrs - 750ml",
+        "id":  1007,
+        "name":  "Stainless Steel Water Bottle",
+        "price":  28.5,
+        "stockQuantity":  180
+    },
+    {
+        "category":  "Electronics",
+        "description":  "Ergonomic gaming mouse with 16000 DPI and customizable RGB lighting",
+        "id":  1008,
+        "name":  "Gaming Mouse RGB",
+        "price":  59.99,
+        "stockQuantity":  120
+    },
+    {
+        "category":  "Stationery",
+        "description":  "Set of 3 premium hardcover notebooks with dotted pages, A5 size",
+        "id":  1009,
+        "name":  "Notebook Set",
+        "price":  24.99,
+        "stockQuantity":  250
+    },
+    {
+        "category":  "Sports \u0026 Fitness",
+        "description":  "Lightweight running shoes with breathable mesh and cushioned sole",
+        "id":  1010,
+        "name":  "Running Shoes",
+        "price":  79.99,
+        "stockQuantity":  95
+    }
+]
