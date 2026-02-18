@@ -24,8 +24,10 @@ This project demonstrates a production-ready microservice for e-commerce product
 - **HikariCP** - Connection pooling for database optimization
 
 ### Development & Testing Tools
+- **JUnit 5** - Unit testing framework
+- **Mockito** - Mocking framework for unit tests
+- **Spring Test** - Integration testing support
 - **Postman** - API testing and manual integration testing
-- **PowerShell** - Scripting for automated tests
 - **curl** - Command-line HTTP testing
 
 ## Project Structure
@@ -42,10 +44,12 @@ restfullApiAssignment/
 │   │   │   └── modal/Product.java                          # Entity model (JPA entity)
 │   │   └── resources/
 │   │       └── application.properties                       # Spring Boot configuration
-│   └── test/                                                 # (Empty - no unit tests added)
-├── scripts/
-│   ├── post_products.ps1                                    # PowerShell script to bulk insert products
-│   └── test_crud.ps1                                        # Complete CRUD test suite
+│   └── test/
+│       ├── java/auca/ac/rw/restfullApiAssignment/
+│       │   ├── ProductServiceIntegrationTest.java              # Full integration tests (Spring Boot)
+│       │   └── service/ProductServiceTest.java                 # Unit tests with Mockito
+│       └── resources/
+│           └── application-test.properties                     # Test configuration
 ├── products.json                                            # Sample product data (10 items)
 ├── pom.xml                                                  # Maven dependency configuration
 ├── mvnw / mvnw.cmd                                          # Maven wrapper (Windows)
@@ -257,48 +261,84 @@ HikariPool-1 - Start completed
 
 The API is now available at: `http://localhost:8080/api/products`
 
-### Step 4: Load Sample Data (Optional)
+### Step 4: Run Tests
 
 ```bash
-# Run PowerShell script to insert 10 sample products
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\post_products.ps1
+# Run all tests (unit tests and integration tests)
+.\mvnw.cmd clean test
 ```
 
-Or use Postman to POST the `products.json` file to `/api/products/bulk`.
+Or to run only integration tests:
+
+```bash
+.\mvnw.cmd clean integration-test
+```
+
+### Step 5: Load Sample Data (Optional)
+
+Use Postman to POST the `products.json` file to `/api/products/bulk` endpoint.
 
 ## Testing
 
-### Automated Test Suite
+### Unit Tests with Mockito (`ProductServiceTest.java`)
 
-Run all CRUD operations with verification:
+Pure unit tests for the service layer using mocks:
+
+- **testSaveProduct_Success** - Validates successful product creation
+- **testSaveProduct_DuplicateId** - Ensures duplicate IDs are rejected
+- **testGetAllProducts** - Tests retrieving all products from repository
+- **testGetProductById_Found** - Tests single product retrieval using mocked repository
+- **testGetProductById_NotFound** - Tests handling of non-existent product lookups
+- **testUpdateProduct_Success** - Validates product attribute updates
+- **testUpdateProduct_NotFound** - Tests update failure on non-existent products
+- **testDeleteProduct_Success** - Tests successful product deletion
+- **testDeleteProduct_NotFound** - Tests deletion of non-existent products
+- **testSaveAll_BulkInsert** - Tests batch insert/save operations
+
+**Run unit tests:**
+```bash
+# Run all unit tests
+.\mvnw.cmd test -Dtest=ProductServiceTest
+
+# Run with verbose output
+.\mvnw.cmd test -Dtest=ProductServiceTest -q
+```
+
+### Integration Tests (`ProductServiceIntegrationTest.java`)
+
+Full Spring Boot integration tests that use actual application context:
+
+- **testCompleteWorkflow** - End-to-end CRUD cycle: Create → Read → Update → Verify Update → Delete → Verify Delete
+- **testBulkSave** - Tests bulk insertion of multiple products
+- **testGetAllProducts** - Tests retrieval of all products from database
+- **testDuplicateProductPrevention** - Validates duplicate key constraint
+- **testUpdateNonExistent** - Tests error handling for updating missing products
+- **testDeleteNonExistent** - Tests error handling for deleting missing products
+
+**Run integration tests:**
+```bash
+# Run all integration tests
+.\mvnw.cmd test -Dtest=ProductServiceIntegrationTest
+
+# Run specific test method
+.\mvnw.cmd test -Dtest=ProductServiceIntegrationTest#testCompleteWorkflow
+```
+
+### All Tests
 
 ```bash
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\test_crud.ps1
+# Run all tests (unit + integration)
+.\mvnw.cmd clean test
+
+# Run with coverage report
+.\mvnw.cmd clean test -Dtest=*Test
 ```
 
-**Test Output Example:**
+**Expected Output:**
 ```
-=== CRUD TEST SUITE ===
-
-1. CREATE - POST new product
-[PASS] CREATE: Product saved successfully.
-
-2. READ ALL - GET /api/products
-[PASS] READ ALL: Found 11 total products
-
-3. READ BY ID - GET /api/products/9999
-[PASS] READ BY ID: Retrieved 'Test Product' - Price: 99.99
-
-4. UPDATE - PUT /api/products/9999
-[PASS] UPDATE: Product updated successfully.
-
-5. DELETE - DELETE /api/products/9999
-[PASS] DELETE: Product deleted successfully.
-
-6. VERIFY DELETE
-[PASS] VERIFY DELETE: Product confirmed deleted (404 Not Found)
-
-[SUCCESS] ALL CRUD TESTS PASSED
+[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] BUILD SUCCESS
 ```
 
 ### Manual Testing with Postman
@@ -339,15 +379,15 @@ curl -X DELETE http://localhost:8080/api/products/1
 
 ## Key Features Implemented
 
-✅ **CRUD Operations** - Full Create, Read, Update, Delete functionality  
-✅ **RESTful API** - Proper HTTP methods and status codes  
-✅ **Database Persistence** - PostgreSQL with Hibernate ORM  
-✅ **Layered Architecture** - Controller → Service → Repository separation  
-✅ **Error Handling** - Proper exception handling and HTTP responses  
-✅ **Bulk Operations** - Single endpoint to insert multiple products  
-✅ **Data Validation** - Duplicate ID detection on creation  
-✅ **Automated Testing** - Complete test suite for all operations  
-✅ **Connection Pooling** - HikariCP for optimized database connections  
+ **CRUD Operations** - Full Create, Read, Update, Delete functionality  
+ **RESTful API** - Proper HTTP methods and status codes  
+ **Database Persistence** - PostgreSQL with Hibernate ORM  
+ **Layered Architecture** - Controller → Service → Repository separation  
+ **Error Handling** - Proper exception handling and HTTP responses  
+ **Bulk Operations** - Single endpoint to insert multiple products  
+ **Data Validation** - Duplicate ID detection on creation  
+ **Automated Testing** - Complete test suite for all operations  
+ **Connection Pooling** - HikariCP for optimized database connections  
 
 ## Dependencies (Maven)
 
@@ -375,38 +415,6 @@ curl -X DELETE http://localhost:8080/api/products/1
 
 All dependencies are managed by Spring Boot's parent POM (version 4.0.2).
 
-## Common Issues & Solutions
-
-### Issue: Connection Refused (port 8080)
-
-**Solution:** Another application is using port 8080
-```bash
-netstat -ano | findstr 8080
-taskkill /PID <PID> /F
-```
-
-### Issue: Database Connection Failed
-
-**Solution:** PostgreSQL not running or wrong credentials
-```bash
-# Verify PostgreSQL
-psql -h localhost -U postgres -d ecommerce_db
-
-# Check connection string in application.properties
-```
-
-### Issue: 400 Bad Request on POST
-
-**Solution:** Invalid JSON in request body
-- Ensure proper double quotes (not single)
-- Check `Content-Type: application/json` header
-- Validate JSON syntax using JSONLint or Postman
-
-### Issue: Table Not Created
-
-**Solution:** Set `spring.jpa.hibernate.ddl-auto=create` and restart
-- Restart the application
-- Check logs for creation SQL statements
 
 ## Files Modified/Created
 
@@ -425,19 +433,6 @@ psql -h localhost -U postgres -d ecommerce_db
 - `scripts/test_crud.ps1` - Comprehensive test suite
 - `pom.xml` - Maven dependencies (no changes needed)
 
-## Next Steps / Enhancements (Optional)
-
-- Add pagination for large result sets: `findAll(Pageable)`
-- Add search/filter: `@Query` annotations in repository
-- Add authentication/authorization: Spring Security
-- Add input validation: `@Valid`, `@NotNull`, etc.
-- Add logging: SLF4J with Logback
-- Add unit tests: JUnit 5, MockMvc
-- Add API documentation: Swagger/OpenAPI
-- Add caching: Redis for frequently accessed products
-- Add transactions: `@Transactional` for complex operations
-- Deploy to cloud: Docker + Kubernetes / Azure / AWS
-
 ## Summary
 
 This project demonstrates a **production-ready REST API** with:
@@ -453,5 +448,3 @@ The API is fully functional and can handle real-world e-commerce product managem
 ---
 
 **Created:** February 18, 2026  
-**Project Status:** Complete ✓  
-**All Tests Passing:** Yes ✓
